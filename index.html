@@ -1,34 +1,4 @@
 
-<?php
-session_start();
-
-if (!isset($_SESSION['admin'])) {
-    header("Location: login.php");
-    exit;
-}
-
-include "koneksi.php";
-
-$total = mysqli_fetch_assoc(
-    mysqli_query($koneksi, "SELECT COUNT(*) AS jumlah FROM users")
-)['jumlah'];
-
-$male = mysqli_fetch_assoc(
-    mysqli_query($koneksi, "SELECT COUNT(*) AS jumlah FROM users WHERE gender='MALE'")
-)['jumlah'];
-
-$female = mysqli_fetch_assoc(
-    mysqli_query($koneksi, "SELECT COUNT(*) AS jumlah FROM users WHERE gender='FEMALE'")
-)['jumlah'];
-
-$malePercent = $total > 0 ? round(($male / $total) * 100) : 0;
-$femalePercent = $total > 0 ? round(($female / $total) * 100) : 0;
-
-$aktivitas = mysqli_query(
-    $koneksi,
-    "SELECT * FROM users ORDER BY id DESC LIMIT 5"
-);
-?>
 
 <!DOCTYPE html>
 <html lang="id">
